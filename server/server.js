@@ -1,11 +1,20 @@
 const express = require("express");
 const app = express();
-const token = require("./router/token");
 const port = 5000;
 
 //const cors = require("cors");
 //app.use(cors());
 
-app.use("/api", token);
+const account = require("./router/account");
+app.use("/api", account);
+
+const marketCode = require("./router/marketCode");
+app.use("/api", marketCode);
+
+const ticker = require("./router/ticker");
+app.use("/api", ticker);
+
+const minuteCandle = require("./router/minuteCandle");
+app.use("/api", minuteCandle);
 
 app.listen(port, () => console.log(`Server on. Port Number : ${port}`));
