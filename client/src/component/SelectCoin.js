@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import marketCode from "../modules/marketCode";
 import AnalyzeCandle from "./AnalyzeCandle";
+import OrderPage from "./OrderPage";
 
 function SelectCoin() {
   const [coinList, setcoinList] = useState([]);
@@ -45,6 +46,7 @@ function SelectCoin() {
       </select>
       <div>현재 선택하신 코인은 [{selectedCoin.korean_name}] 입니다</div>
       <AnalyzeCandle market={selectedCoin.market} />
+      <OrderPage market={selectedCoin.market} side="bid" />
     </div>
   );
 }

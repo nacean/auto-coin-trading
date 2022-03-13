@@ -17,4 +17,7 @@ app.use("/api", ticker);
 const minuteCandle = require("./router/minuteCandle");
 app.use("/api", minuteCandle);
 
+const order = require("./router/order");
+app.use("/api", order);
+
 app.listen(port, () => console.log(`Server on. Port Number : ${port}`));
