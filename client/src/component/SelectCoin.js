@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import marketCode from "../modules/marketCode";
 import AnalyzeCandle from "./AnalyzeCandle";
+import CoinOption from "./CoinOption";
 import OrderPage from "./OrderPage";
 
 function SelectCoin() {
@@ -26,27 +27,18 @@ function SelectCoin() {
         name="coinScroll"
         id="coinScroll"
         onChange={(e) => {
-          setSelectedCoin({
+          const coinInfo = {
             market: e.target.value,
             korean_name: e.target.selectedOptions[0].innerText,
-          });
+          };
+          setSelectedCoin(coinInfo);
         }}
       >
         {coinList.map((coin) => {
-          return (
-            <option
-              key={coin.korean_name}
-              value={coin.market}
-              defaultValue="KRW-BTC"
-            >
-              {coin.korean_name}
-            </option>
-          );
+          return <CoinOption coin={coin} />;
         })}
       </select>
       <div>현재 선택하신 코인은 [{selectedCoin.korean_name}] 입니다</div>
-      <AnalyzeCandle market={selectedCoin.market} />
-      <OrderPage market={selectedCoin.market} side="bid" />
     </div>
   );
 }

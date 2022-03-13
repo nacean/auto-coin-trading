@@ -3,7 +3,7 @@ const axios = require("axios").default;
 async function getMinuteCandle(market) {
   const options = {
     method: "GET",
-    url: `https://api.upbit.com/v1/candles/minutes/5?market=${market}&count=30`,
+    url: `https://api.upbit.com/v1/candles/minutes/5?market=${market}&count=2`,
     headers: { Accept: "application/json" },
   };
 
