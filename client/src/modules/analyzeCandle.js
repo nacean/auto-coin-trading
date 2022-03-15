@@ -37,6 +37,8 @@ function analyzeCandle({ Coin }) {
 
         if (downCandles.length === 3) {
           analyzeSellingPoint(market);
+          resetCandle();
+          initTopCandle(null);
         }
       }
     }

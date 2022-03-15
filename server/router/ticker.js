@@ -3,7 +3,8 @@ const getTicker = require("../modules/getTicker");
 const router = express.Router();
 
 router.get("/ticker", (req, res) => {
-  getTicker().then((response) => {
+  const { market } = req.query;
+  getTicker(market).then((response) => {
     res.send({ ticker: response.data });
   });
 });

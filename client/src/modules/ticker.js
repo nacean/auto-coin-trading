@@ -1,7 +1,7 @@
 import axios from "axios";
 
-async function ticker() {
-  const newTicker = await axios.get("/api/ticker");
+async function ticker(market) {
+  const newTicker = await axios.get(`/api/ticker?market=${market}`);
   return newTicker.data;
 }
 
