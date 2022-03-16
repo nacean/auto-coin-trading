@@ -1,48 +1,74 @@
 import minuteCandle from "./minuteCandle";
-import candleStore from "../utils/candles";
+import candleStore from "../utils/candleStore";
 import analyzeSellingPoint from "./analyzeSellingPoint";
-
-function analyzeCandle({ Coin }) {
+function analyzeCandle(Coin) {
+  const {
+    getTopCandle,
+    getDownCandles,
+    insertCandle,
+    initTopCandle,
+    resetCandle,
+  } = candleStore;
   const { market } = Coin;
-  const { downCandles, insertCandle, topCandle, initTopCandle, resetCandle } =
-    candleStore();
 
-  minuteCandle(market).then((response) => {
-    const newCandleInfo = response.minuteCandle;
-    const { opening_price, trade_price } = newCandleInfo;
-    const candleDegree = trade_price - opening_price;
+  //candle 정보 초기화
+  initTopCandle(null);
+  resetCandle();
 
-    if (topCandle === null) {
-      //첫 양봉 갱신
-      if (candleDegree > opening_price * 0.005) {
-        initTopCandle(newCandleInfo);
-      }
-    } else {
-      //topCandle보다 큼 or 빅 양봉임
-      if (
-        trade_price > topCandle.trade_price ||
-        candleDegree > trade_price * 0.004
-      ) {
-        initTopCandle(newCandleInfo);
-        resetCandle();
-      } else {
-        const comparePrice =
-          downCandles.length === 0
-            ? topCandle.trade_price
-            : downCandles[downCandles.length - 1].trade_price;
+  const timer = setInterval(() => {
+    minuteCandle(market).then((response) => {
+      const newCandleInfo = response.minuteCandle[0];
+      console.log(newCandleInfo);
+      const { opening_price, trade_price } = newCandleInfo;
+      const candleDegree = trade_price - opening_price;
 
-        if (comparePrice - comparePrice * 0.009 > trade_price) {
-          insertCandle(newCandleInfo);
-        }
-
-        if (downCandles.length === 3) {
-          analyzeSellingPoint(market);
+      if (getTopCandle() === null) {
+        //첫 양봉 갱신
+        if (candleDegree > 0) {
+          initTopCandle(newCandleInfo);
           resetCandle();
-          initTopCandle(null);
+          console.log("양봉 갱신");
+        }
+      } else {
+        //topCandle보다 큼 or 빅 양봉임
+        if (
+          trade_price > getTopCandle().trade_price ||
+          candleDegree >= trade_price * 0.005
+        ) {
+          console.log("더 큰 양봉 발견 or 빅 양봉");
+          initTopCandle(newCandleInfo);
+          resetCandle();
+        } else {
+          const comparePrice =
+            getDownCandles().length === 0
+              ? getTopCandle().trade_price
+              : getDownCandles()[getDownCandles().length - 1].trade_price;
+          console.log(
+            `compare Price : ${
+              comparePrice - comparePrice * 0.009
+            } , trade_price : ${trade_price}`
+          );
+          if (comparePrice - comparePrice * 0.009 > trade_price) {
+            insertCandle(newCandleInfo);
+            console.log("음봉 1틱 추가");
+          }
+
+          if (getDownCandles().length === 3) {
+            console.log("매수가 시작되었습니다.");
+            //3틱 매집, 매수 시작
+            analyzeSellingPoint(market);
+            resetCandle();
+            initTopCandle(null);
+            console.log("매도가 실행되고 종료되었습니다.");
+          }
         }
       }
-    }
-  });
+
+      console.log(candleStore);
+    });
+  }, 3000);
+
+  return timer;
 }
 
 export default analyzeCandle;
