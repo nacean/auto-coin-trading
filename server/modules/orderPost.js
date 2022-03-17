@@ -6,15 +6,14 @@ let identifyNumber = 0;
 
 async function orderPost(market, side, volume) {
   const order_type = side === "bid" ? "price" : "market";
-  const price = side === "bid" ? "7000" : null;
-  volume = volume === "0" ? null : volume;
+  const price = side === "bid" ? "50000" : null;
+  const vol = volume === "0" ? null : volume;
   const body = {
     market: market,
     side: side,
     price: price,
+    volume: vol,
     ord_type: order_type,
-    identifier: identifyNumber,
-    volume: volume,
   };
 
   const token = getPostToken(body);
