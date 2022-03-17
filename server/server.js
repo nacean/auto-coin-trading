@@ -20,4 +20,7 @@ app.use("/api", minuteCandle);
 const order = require("./router/order");
 app.use("/api", order);
 
+const purchaseInfo = require("./router/purchaseInfo");
+app.use("/api", purchaseInfo);
+
 app.listen(port, () => console.log(`Server on. Port Number : ${port}`));
