@@ -6,7 +6,7 @@ let identifyNumber = 0;
 
 async function orderPost(market, side, volume) {
   const order_type = side === "bid" ? "price" : "market";
-  const price = side === "bid" ? "50000" : null;
+  const price = side === "bid" ? "20000" : null;
   const vol = volume === "0" ? null : volume;
   const body = {
     market: market,
