@@ -12,6 +12,7 @@ import create from "zustand";
 
 const purchaseStore = {
   purchasedCoin: null,
+  doingPurchase: false,
   setpurchasedCoin: (newCoin) => {
     purchaseStore.purchasedCoin = newCoin;
   },
@@ -20,6 +21,12 @@ const purchaseStore = {
   },
   getPurchasedCoin: () => {
     return purchaseStore.purchasedCoin;
+  },
+  setdoingPurchase: (doing) => {
+    purchaseStore.doingPurchase = doing;
+  },
+  getdoingPurchase: () => {
+    return purchaseStore.doingPurchase;
   },
 };
 
