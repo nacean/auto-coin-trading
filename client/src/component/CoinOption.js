@@ -1,10 +1,14 @@
 import React from "react";
+import "../css/CoinOption.css";
 
-function CoinOption({ coin }) {
+function CoinOption({ coin, selected }) {
   return (
-    <option key={coin.korean_name} value={coin.market} defaultValue="KRW-BTC">
+    <li
+      className={selected ? "coinList selectedCoin" : "coinList"}
+      id={coin.market}
+    >
       {coin.korean_name}
-    </option>
+    </li>
   );
 }
 

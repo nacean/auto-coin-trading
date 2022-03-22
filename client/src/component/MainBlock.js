@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-//import analyzeCandle from "../modules/analyzeCandle";
 import marketCode from "../modules/marketCode";
-import CoinOption from "./CoinOption";
+import MarketShow from "./MarketShow";
+import TradingButton from "./TradingButton";
+import "../css/MainBlock.css";
 
-function SelectCoin() {
-  //const [working, setworking] = useState(null);
+function MainBlock() {
+  const [working, setworking] = useState(null);
   const [coinList, setcoinList] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState({});
 
@@ -30,25 +31,22 @@ function SelectCoin() {
   }, []);
 
   return (
-    <div>
-      <select
-        name="coinScroll"
-        id="coinScroll"
-        onChange={(e) => {
-          const coinInfo = {
-            market: e.target.value,
-            korean_name: e.target.selectedOptions[0].innerText,
-          };
-          setSelectedCoin(coinInfo);
-        }}
-      >
-        {coinList.map((coin) => {
-          return <CoinOption coin={coin} />;
-        })}
-      </select>
-      <div>현재 선택하신 코인은 [{selectedCoin.korean_name}] 입니다</div>
+    <div className="MainBlock">
+      <div className="showBlocks boxShadow">
+        <div>현재 선택하신 코인은 [{selectedCoin.korean_name}] 입니다</div>
+        <TradingButton
+          selectedCoin={selectedCoin}
+          working={working}
+          setworking={setworking}
+        />
+      </div>
+      <MarketShow
+        selectedCoin={selectedCoin}
+        setSelectedCoin={setSelectedCoin}
+        coinList={coinList}
+      />
     </div>
   );
 }
 
-export default SelectCoin;
+export default MainBlock;
