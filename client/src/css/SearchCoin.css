@@ -1,0 +1,35 @@
+.searchCoinBox {
+  width: 250px;
+  height: 40px;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c0c0c0;
+  display: flex;
+}
+
+#searchCoin {
+  width: 200px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 5px;
+  border: 0;
+  /* border-right: 1px solid #c0c0c0; */
+  font-size: 15px;
+}
+#searchCoin:focus {
+  outline: 0;
+}
+.btnBox {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resetBtn {
+  background: none;
+  border: none;
+  font-size: 15px;
+}
+.noDisplay {
+  display: none;
+}

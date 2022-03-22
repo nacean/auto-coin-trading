@@ -1,0 +1,16 @@
+.coinList {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  height: 40px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid #f4f5f8ea;
+  font-size: 15px;
+}
+.coinList:hover {
+  background-color: #f4f5f8ea;
+}
+.selectedCoin {
+  background-color: #f4f5f8ea;
+}
