@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import SelectCoin from "./component/SelectCoin";
+import React from "react";
+import Head from "./component/Head";
+import MainBlock from "./component/MainBlock";
+import "./css/reset.css";
 function App() {
   return (
     <div className="App">
-      <h1>비트코인 자동 매매 프로그램</h1>
-      <SelectCoin />
+      <Head />
+      <MainBlock />
     </div>
   );
 }
