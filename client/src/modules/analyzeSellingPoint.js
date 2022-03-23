@@ -4,7 +4,7 @@ import orderCoin from "./orderCoin";
 import purchaseInfo from "./purchaseInfo";
 import ticker from "./ticker";
 let cnt = 0;
-function analyzeSellingPoint(market) {
+function analyzeSellingPoint(market, setpurchaseDisplayInfo) {
   const { getPurchasedCoin, setpurchasedCoin, resetCoin, setdoingPurchase } =
     purchaseStore;
   const { initTopCandle, resetCandle } = candleStore;
@@ -26,39 +26,49 @@ function analyzeSellingPoint(market) {
       const { price, volume } = trades;
 
       const timer = setInterval(() => {
-        ticker(market).then((response) => {
-          const { trade_price } = response.ticker[0];
-          console.log(
-            `${cnt} : price is ${price}, trade price is ${trade_price}`
-          );
-          //if (price * 1.01 <= trade_price) {
-          if (price * 1.01 <= trade_price) {
-            //조건완화
-            //수익이 나는 경우
-            orderCoin(market, "ask", volume).then((response) => {
-              console.log("수익이 발생했습니다", response.order);
-              //캔들 초기화
-              initTopCandle(null);
-              resetCandle();
+        ticker(market)
+          .then((response) => {
+            const { trade_price } = response.ticker[0];
+            console.log(
+              `${cnt} : price is ${price}, trade price is ${trade_price}`
+            );
+            //if (price * 1.01 <= trade_price) {
+            if (price * 1.01 <= trade_price) {
+              //조건완화
+              //수익이 나는 경우
+              orderCoin(market, "ask", volume).then((response) => {
+                console.log("수익이 발생했습니다", response.order);
+                //캔들 초기화
+                initTopCandle(null);
+                resetCandle();
 
-              setdoingPurchase(false); //purchase 끝났다는걸 analyzeCandle interval에 알림
-              clearInterval(timer);
-            });
-          } //else if (trade_price * 1.01 <= price) {
-          else if (trade_price * 1.01 <= price) {
-            //조건완화
-            //수익이 안나는 경우
-            orderCoin(market, "ask", volume).then((response) => {
-              console.log("손실이 발생했습니다.", response.order);
-              //캔들 초기화
-              initTopCandle(null);
-              resetCandle();
+                setdoingPurchase(false); //purchase 끝났다는걸 analyzeCandle interval에 알림
+                clearInterval(timer);
+              });
+            } //else if (trade_price * 1.01 <= price) {
+            else if (trade_price * 1.01 <= price) {
+              //조건완화
+              //수익이 안나는 경우
+              orderCoin(market, "ask", volume)
+                .then((response) => {
+                  console.log("손실이 발생했습니다.", response.order);
+                  //캔들 초기화
+                  initTopCandle(null);
+                  resetCandle();
 
-              setdoingPurchase(false); //purchase 끝났다는걸 analyzeCandle interval에 알림
-              clearInterval(timer);
-            });
-          }
-        });
+                  setdoingPurchase(false); //purchase 끝났다는걸 analyzeCandle interval에 알림
+                  clearInterval(timer);
+                })
+                .then(() => {});
+            }
+            return {
+              price: price,
+              trade_price: trade_price,
+            };
+          })
+          .then((response) => {
+            setpurchaseDisplayInfo(response);
+          });
         cnt++;
       }, 1000);
 

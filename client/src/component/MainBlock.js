@@ -4,12 +4,23 @@ import MarketShow from "./MarketShow";
 import TradingButton from "./TradingButton";
 import "../css/MainBlock.css";
 import CoinExplain from "./CoinExplain";
+import TradingProgress from "./TradingProgress";
 
 function MainBlock() {
   const [working, setworking] = useState(null);
   const [coinList, setcoinList] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState({});
   const [iconUrl, seticonUrl] = useState("");
+  const [candleDisplayInfo, setcandleDisplayInfo] = useState({
+    comparePrice: "없음",
+    tradePrice: "없음",
+    downCandleLength: 0,
+  });
+  const [purchaseDisplayInfo, setpurchaseDisplayInfo] = useState({
+    price: "없음",
+    trade_price: "없음",
+    comment: "",
+  });
   useEffect(() => {
     //마켓코드, 첫 코인 초기화
     marketCode().then((response) => {
@@ -35,13 +46,21 @@ function MainBlock() {
   }, []);
 
   return (
-    <div className="MainBlock">
+    <section className="MainBlock">
       <div className="showBlocks boxShadow">
-        <CoinExplain iconUrl={iconUrl} selectedCoin={selectedCoin} />
-        <TradingButton
-          selectedCoin={selectedCoin}
-          working={working}
-          setworking={setworking}
+        <div className="selectDisplay">
+          <CoinExplain iconUrl={iconUrl} selectedCoin={selectedCoin} />
+          <TradingButton
+            selectedCoin={selectedCoin}
+            working={working}
+            setworking={setworking}
+            setcandleDisplayInfo={setcandleDisplayInfo}
+            setpurchaseDisplayInfo={setpurchaseDisplayInfo}
+          />
+        </div>
+        <TradingProgress
+          candleDisplayInfo={candleDisplayInfo}
+          purchaseDisplayInfo={purchaseDisplayInfo}
         />
       </div>
       <MarketShow
@@ -50,7 +69,7 @@ function MainBlock() {
         coinList={coinList}
         seticonUrl={seticonUrl}
       />
-    </div>
+    </section>
   );
 }
 
