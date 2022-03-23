@@ -14,3 +14,8 @@
 .selectedCoin {
   background-color: #f4f5f8ea;
 }
+.coinImage {
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+}
