@@ -3,6 +3,22 @@
   animation-name: explainAnimation;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
+  font-size: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.coinExplain .coinBigImage {
+  width: 200px;
+  height: 200px;
+  padding: 20px 0;
+}
+
+.coinExplain .coinName {
+  padding: 10px 0;
+  font-size: 40px;
+  font-weight: 800;
 }
 
 @-webkit-keyframes explainAnimation {

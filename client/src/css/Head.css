@@ -8,10 +8,19 @@ header section {
   background-color: #093687;
   box-sizing: border-box;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  padding-right: 20px;
 }
 header section .mainName {
   font-size: 30px;
   color: #ffffff;
+}
+header section .upbitLogo {
+  text-indent: -9999px;
+  background: url("../../public/assets/upbit_logo/upbit.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 50px;
 }

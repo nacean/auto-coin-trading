@@ -3,9 +3,10 @@ import analyzeCandle from "../modules/analyzeCandle";
 import "../css/TradingButton.css";
 function TradingButton({ selectedCoin, working, setworking }) {
   return (
-    <div className="tradingBtn">
+    <div className="tradingBtnBox">
       {working === null ? (
         <button
+          className="tradingBtn"
           onClick={() => {
             const timer = analyzeCandle(selectedCoin);
             //testOrder(selectedCoin);
@@ -16,6 +17,7 @@ function TradingButton({ selectedCoin, working, setworking }) {
         </button>
       ) : (
         <button
+          className="tradingBtn"
           onClick={() => {
             clearInterval(working);
             setworking(null);
