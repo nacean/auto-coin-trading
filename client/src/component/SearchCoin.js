@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/SearchCoin.css";
 
-function SearchCoin({ coinInput, setcoinInput }) {
+function SearchCoin({ coinInput, setcoinInput}) {
   function resetSearch() {
     setcoinInput("");
   }

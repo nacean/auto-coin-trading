@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import CoinOption from "./CoinOption";
 import "../css/MarketShow.css";
 import SearchCoin from "./SearchCoin";
-function MarketShow({ selectedCoin, setSelectedCoin, coinList }) {
+function MarketShow({ selectedCoin, setSelectedCoin, coinList, seticonUrl }) {
   const [coinInput, setcoinInput] = useState("");
+
   function selectMarket(target) {
     const nowCoin = {
       market: target.id,
       korean_name: target.innerText,
     };
     setSelectedCoin(nowCoin);
+    console.log(nowCoin.market);
+    const coinId = nowCoin.market.split("-")[1];
+    seticonUrl(`./assets/crypto-icons/color/${coinId}.png`);
   }
 
   return (

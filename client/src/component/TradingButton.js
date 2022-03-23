@@ -1,8 +1,9 @@
 import React from "react";
 import analyzeCandle from "../modules/analyzeCandle";
+import "../css/TradingButton.css";
 function TradingButton({ selectedCoin, working, setworking }) {
   return (
-    <div>
+    <div className="tradingBtn">
       {working === null ? (
         <button
           onClick={() => {
